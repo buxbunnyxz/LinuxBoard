@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+public function up()
 {
     Schema::create('users', function (Blueprint $table) {
         $table->id();
@@ -27,6 +27,7 @@ return new class extends Migration
         $table->foreign('broker_id')->references('id')->on('users')->onDelete('set null');
     });
 }
+
 
     /**
      * Reverse the migrations.

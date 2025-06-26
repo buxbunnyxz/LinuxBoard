@@ -11,18 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('subscriptions', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('type');
-            $table->date('expiry_date');
-            $table->timestamps();
+public function up()
+{
+    Schema::create('subscriptions', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('user_id');
+        $table->string('type');
+        $table->date('expiry_date');
+        $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-    }
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
+}
+
 
     /**
      * Reverse the migrations.
