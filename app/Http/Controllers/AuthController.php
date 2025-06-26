@@ -6,94 +6,69 @@ use Illuminate\Http\Request;
 use Validator;
 use Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller {
     
-    /**
-     * Display login of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function login(){
-        $title = "Login";
-        $description = "Some description for the page";
+        $title = __("Login");
+        $description = __("Some description for the page");
         return view('auth.login',compact('title','description'));
     }
 
-    /**
-     * Display register of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function register(){
-        $title = "Register";
-        $description = "Some description for the page";
+        $title = __("Register");
+        $description = __("Some description for the page");
         return view('auth.register',compact('title','description'));
     }
 
-    /**
-     * Display forget password of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function forgetPassword(){
-        $title = "Forget Password";
-        $description = "Some description for the page";
+        $title = __("Forget Password");
+        $description = __("Some description for the page");
         return view('auth.forget_password',compact('title','description'));
     }
 
-    /**
-     * make the user able to register
-     *
-     * @return 
-     */
     public function signup(Request $request){
-        $validators=Validator::make($request->all(),[
+        $validators = Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|email|unique:users',
             'password'=>'required'
         ]);
         if($validators->fails()){
             return redirect()->route('register')->withErrors($validators)->withInput();
-        }else{
+        } else {
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
             auth()->login($user);
-            return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Registration was successfull !');            
+            return redirect()->route('dashboard.demo_one', 'en')->with('message', __('Registration was successful!'));            
         }
     }
 
-    /**
-     * make the user able to login
-     *
-     * @return 
-     */
     public function authenticate(Request $request){
-        $validators=Validator::make($request->all(),[
+        $validators = Validator::make($request->all(),[
             'email'=>'required|email',
             'password'=>'required'
         ]);
         if($validators->fails()){
             return redirect()->route('login')->withErrors($validators)->withInput();
-        }else{
+        } else {
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-                return redirect()->intended(route('dashboard.demo_one','en'))->with('message','Welcome back !');
-            }else{
-                return redirect()->route('login')->with('message','Login failed !Email/Password is incorrect !');
+                Log::info('User logged in: '.$request->email);
+                return redirect()->route('dashboard.demo_one', 'en')->with('message', __('Welcome back!'));
+            } else {
+                Log::warning('Failed login attempt: '.$request->email);
+                return redirect()->route('login')->withErrors([
+                    'email' => __('Login failed! Email/Password is incorrect.')
+                ])->withInput();
             }
         }
     }
 
-    /**
-     * make the user able to logout
-     *
-     * @return 
-     */
     public function logout(){  
         Auth::logout(); 
-        return redirect()->route('login')->with('message','Successfully Logged out !');       
+        return redirect()->route('login')->with('message', __('Successfully logged out!'));       
     }
 }

@@ -11,4 +11,12 @@ return [
     'Or' => 'Or',
     "Don't have an account?" => "Don't have an account?",
     'Sign up' => 'Sign up',
+    'Login' => 'Login',
+    'Register' => 'Register',
+    'Forget Password' => 'Forget Password',
+    'Some description for the page' => 'Some description for the page',
+    'Registration was successful!' => 'Registration was successful!',
+    'Welcome back!' => 'Welcome back!',
+    'Login failed! Email/Password is incorrect.' => 'Login failed! Email/Password is incorrect.',
+    'Successfully logged out!' => 'Successfully logged out!',
 ];
