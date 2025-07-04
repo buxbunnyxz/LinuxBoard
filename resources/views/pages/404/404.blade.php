@@ -9,9 +9,9 @@
                 <div class="error-page text-center">
                     <img src="{{ asset('assets/img/svg/404.svg') }}" alt="404" class="svg">
                     <div class="error-page__title">404</div>
-                    <h5 class="fw-500">Sorry! the page you are looking for doesn't exist.</h5>
+                    <h5 class="fw-500">{{ __('error_404.sorry') }}</h5>
                     <div class="content-center mt-30">
-                        <a href="{{ route('dashboard.demo_one',app()->getLocale()) }}" class="btn btn-primary btn-default btn-squared px-30">Return Home</a>
+                        <a href="{{ route('dashboard.demo_one',app()->getLocale()) }}" class="btn btn-primary btn-default btn-squared px-30">{{ __('error_404.return_home') }}</a>
                     </div>
                 </div>
             </div>

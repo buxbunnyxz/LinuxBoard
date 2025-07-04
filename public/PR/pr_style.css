@@ -1,0 +1,49 @@
+body {
+  background: #F8FBFA;
+  min-height: 100vh;
+  padding-top: 40px;
+}
+#reader {
+  width: 95vw;
+  max-width: 420px;
+  margin: 1em auto;
+  display: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #247B7B33;
+  aspect-ratio: 1/1; /* Ensures a square on all screens */
+}
+
+.brand-title {
+  color: #247B7B;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 2rem;
+}
+.scan-btn {
+  background: #247B7B;
+  border: none;
+  color: white;
+  padding: 0.7em 2em;
+  font-size: 1.2em;
+  border-radius: 1em;
+  transition: background 0.2s;
+}
+.scan-btn:hover {
+  background: #125555;
+}
+.icon {
+  font-size: 2.2em;
+  vertical-align: middle;
+  margin-right: 0.25em;
+}
+#result {
+  margin-top: 2em;
+  font-size: 1.1em;
+  color: #247B7B;
+  word-break: break-all;
+  background: #E8F8F8;
+  padding: 1em;
+  border-radius: 0.8em;
+  min-height: 48px;
+  display: none;
+}

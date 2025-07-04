@@ -1,14 +1,14 @@
 <div class="customizer">
     <div class="customizer__head">
-        <h4 class="customizer__title">Customizer</h4>
-        <span class="customizer__sub-title">Customize your overview page layout</span>
+        <h4 class="customizer__title">{{ __('customizer.title') }}</h4>
+        <span class="customizer__sub-title">{{ __('customizer.sub-title') }}</span>
         <a href="#" class="customizer-close">
             <img class="svg" src="{{ asset('assets/img/svg/close.svg') }}" alt="">
         </a>
     </div>
     <div class="customizer__body">
         <div class="customizer__single">
-            <h4>Layout Type</h4>
+            <h4>{{ __('customizer.layout-type') }}</h4>
             <ul class="customizer-list d-flex layout">
                 <li class="customizer-list__item">
                     <a href="{{ Helper::get_translation_url( 'en' ) }}" class="{{ ! Helper::is_rtl() ? 'active' : '' }}">
@@ -25,7 +25,7 @@
             </ul>
         </div>
         <div class="customizer__single">
-            <h4>Sidebar Type</h4>
+            <h4>{{ __('customizer.sidebar-type') }}</h4>
             <ul class="customizer-list d-flex l_sidebar">
                 <li class="customizer-list__item">
                     <a href="#" data-layout="light" class="dark-mode-toggle active">
@@ -42,7 +42,7 @@
             </ul>
         </div>
         <div class="customizer__single">
-            <h4>Navbar Type</h4>
+            <h4>{{ __('customizer.navbar-type') }}</h4>
             <ul class="customizer-list d-flex l_navbar">
                 <li class="customizer-list__item">
                     <a href="#" data-layout="side" class="active">

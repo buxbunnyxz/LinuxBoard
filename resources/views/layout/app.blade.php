@@ -2,8 +2,8 @@
 <body class="layout-light side-menu">
     <div class="mobile-search">
         <form action="/" class="search-form">
-            <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
-            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="Search..." aria-label="Search">
+            <img src="{{ asset('assets/img/svg/search.svg') }}" alt="{{ __('layout.search_alt') }}" class="svg">
+            <input class="form-control me-sm-2 box-shadow-none" type="search" placeholder="{{ __('layout.search_placeholder') }}" aria-label="{{ __('layout.search_aria') }}">
         </form>
     </div>
     <div class="mobile-author-actions"></div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }} - {{ __('Intelboard') }}</title>
+    <title>{{ $title }} - {{ __('intelboard.site_title') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/plugin.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -26,24 +26,24 @@
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>{{ __('Sign in Intelboard') }}</h6>
+                                        <h6>{{ __('login.sign_in_title') }}</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form action="{{ route('authenticate') }}" method="POST">
+                                    <form action="{{ route('authenticate', ['locale' => app()->getLocale()]) }}" method="POST">
                                         @csrf
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
-                                                <label for="email">{{ __('Username Or Email Address') }}</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('Email address') }}">
+                                                <label for="email">{{ __('login.username_or_email') }}</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('login.email_placeholder') }}">
                                                 @if($errors->has('email'))
                                                     <p class="text-danger">{{$errors->first('email')}}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-15">
-                                                <label for="password-field">{{ __('Password') }}</label>
+                                                <label for="password-field">{{ __('login.password') }}</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="{{ __('Password') }}">
+                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="{{ __('login.password_placeholder') }}">
                                                     <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
                                                 @if($errors->has('password'))
@@ -54,14 +54,14 @@
                                                 <div class="checkbox-theme-default custom-checkbox ">
                                                     <input class="checkbox" type="checkbox" id="check-1">
                                                     <label for="check-1">
-                                                        <span class="checkbox-text">{{ __('Keep me logged in') }}</span>
+                                                        <span class="checkbox-text">{{ __('login.keep_logged_in') }}</span>
                                                     </label>
                                                 </div>
-                                                <a href="{{ route('forget_password') }}">{{ __('Forget password?') }}</a>
+                                                <a href="{{ route('forget_password', ['locale' => app()->getLocale()]) }}">{{ __('login.forget_password') }}</a>
                                             </div>
                                             <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                                 <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
-                                                    {{ __('sign in') }}
+                                                    {{ __('login.sign_in_button') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="px-20">
                                     <p class="social-connector social-connector__admin text-center">
-                                        <span>{{ __('Or') }}</span>
+                                        <span>{{ __('login.or') }}</span>
                                     </p>
                                     <div class="button-group d-flex align-items-center justify-content-center">
                                         <ul class="admin-socialBtn">
@@ -98,9 +98,9 @@
                                 </div>
                                 <div class="admin-topbar">
                                     <p class="mb-0">
-                                        {{ __("Don't have an account?") }}
-                                        <a href="{{ route('register') }}" class="color-primary">
-                                            {{ __('Sign up') }}
+                                        {{ __('login.no_account') }}
+                                        <a href="{{ route('register', ['locale' => app()->getLocale()]) }}" class="color-primary">
+                                            {{ __('login.sign_up') }}
                                         </a>
                                     </p>
                                 </div>

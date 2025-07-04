@@ -9,13 +9,12 @@
                     <div class="breadcrumb-main add-contact justify-content-sm-between ">
                         <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
                             <div class="d-flex align-items-center add-contact__title justify-content-center me-sm-25">
-                                <h4 class="text-capitalize fw-500 breadcrumb-title">{{ trans('menu.customer-view-all') }}
-                                </h4>
+                                <h4 class="text-capitalize fw-500 breadcrumb-title">{{ __('customer_list.title') }}</h4>
                                 <span class="sub-title ms-sm-25 ps-sm-25"></span>
                             </div>
                             <div class="action-btn mt-sm-0 mt-15">
                                 <a href="{{ route('customer.create', app()->getLocale()) }}" class="btn px-20 btn-primary ">
-                                    <i class="las la-plus fs-16"></i>Add New
+                                    <i class="las la-plus fs-16"></i>{{ __('customer_list.add_new') }}
                                 </a>
                             </div>
                         </div>
@@ -24,7 +23,7 @@
                             <form action="/" class="d-flex align-items-center add-contact__form my-sm-0 my-2">
                                 <img src="{{ asset('assets/img/svg/search.svg') }}" alt="search" class="svg">
                                 <input class="form-control me-sm-2 border-0 box-shadow-none" type="search"
-                                    placeholder="Search by Name" aria-label="Search">
+                                    placeholder="{{ __('customer_list.search_placeholder') }}" aria-label="Search">
                             </form>
 
                         </div>
@@ -36,7 +35,7 @@
             <div class="col-lg-12 mb-30">
                 <div class="card">
                     <div class="card-header color-dark fw-500">
-                        Customer List
+                        {{ __('customer_list.header') }}
                     </div>
                     <div class="card-body">
                         <div class="userDatatable global-shadow border-light-0 w-100">
@@ -49,28 +48,28 @@
                                                     <div class="custom-checkbox  check-all">
                                                         <input class="checkbox" type="checkbox" id="check-45">
                                                         <label for="check-45">
-                                                            <span class="checkbox-text userDatatable-title">Customer</span>
+                                                            <span class="checkbox-text userDatatable-title">{{ __('customer_list.customer_column') }}</span>
                                                         </label>
                                                     </div>
                                                 </div>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Emaill</span>
+                                                <span class="userDatatable-title">{{ __('customer_list.email_column') }}</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Phone</span>
+                                                <span class="userDatatable-title">{{ __('customer_list.phone_column') }}</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Profession</span>
+                                                <span class="userDatatable-title">{{ __('customer_list.profession_column') }}</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Gender</span>
+                                                <span class="userDatatable-title">{{ __('customer_list.gender_column') }}</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title">Status</span>
+                                                <span class="userDatatable-title">{{ __('customer_list.status_column') }}</span>
                                             </th>
                                             <th>
-                                                <span class="userDatatable-title float-end">Actions</span>
+                                                <span class="userDatatable-title float-end">{{ __('customer_list.actions_column') }}</span>
                                             </th>
                                         </tr>
                                     </thead>
@@ -78,7 +77,7 @@
                                         @if (count($customers) == 0)
                                             <tr>
                                                 <td colspan="7">
-                                                    <p class="text-center">No Customer Found !</p>
+                                                    <p class="text-center">{{ __('customer_list.no_customer') }}</p>
                                                 </td>
                                             </tr>
                                         @else
@@ -129,7 +128,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="userDatatable-content">
-                                                            {{ $customer->gender == 'male' ? 'Male' : 'Female' }}
+                                                            {{ $customer->gender == 'male' ? __('customer_list.gender_male') : __('customer_list.gender_female') }}
                                                         </div>
                                                     </td>
                                                     <td>
@@ -154,7 +153,7 @@
                                                                     class="remove"
                                                                     onclick="
                                                                         event.preventDefault();
-                                                                        if ( confirm('Are you sure you want to delete ?') ) {
+                                                                        if ( confirm('{{ __('customer_list.delete_confirm') }}') ) {
                                                                             document.getElementById( 'delete-{{ $customer->id }}' ).submit();
                                                                         }
                                                                     "
@@ -186,9 +185,9 @@
                                 <li class="dm-pagination__item">
                                     <div class="paging-option">
                                         <select name="page-number" class="page-selection" onchange="updatePagination( event )">
-                                            <option value="20" {{ 20 == $customers->perPage() ? 'selected' : '' }}>20/page</option>
-                                            <option value="40" {{ 40 == $customers->perPage() ? 'selected' : '' }}>40/page</option>
-                                            <option value="60" {{ 60 == $customers->perPage() ? 'selected' : '' }}>60/page</option>
+                                            <option value="20" {{ 20 == $customers->perPage() ? 'selected' : '' }}>20/{{ __('customer_list.per_page') }}</option>
+                                            <option value="40" {{ 40 == $customers->perPage() ? 'selected' : '' }}>40/{{ __('customer_list.per_page') }}</option>
+                                            <option value="60" {{ 60 == $customers->perPage() ? 'selected' : '' }}>60/{{ __('customer_list.per_page') }}</option>
                                         </select>
                                         <a href="/pagination-per-page/20" class="d-none per-page-pagination"></a>
                                     </div>

@@ -1,29 +1,89 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\PaginationController;
+namespace App\Http\Controllers;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Http\Request;
+use Validator;
+use Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
-Route::group(['middleware'=>'guest'],function(){
-    Route::get('/',[AuthController::class,'login'])->name('login');
-    Route::get('/register',[AuthController::class,'register'])->name('register');
-    Route::get('/forget-password',[AuthController::class,'forgetPassword'])->name('forget_password');
-    Route::post('/authenticate',[AuthController::class,'authenticate'])->name('authenticate');
-    Route::post('/signup',[AuthController::class,'signup'])->name('signup');
-});
+class AuthController extends Controller {
+    
+    public function login(){
+        $title = __("login.title");
+        $description = __("login.description");
+        return view('auth.login', compact('title','description'));
+    }
 
-Route::post('/logout',[AuthController::class,'logout'])->name('logout')->middleware('auth');
-Route::get('/lang/{lang}',[ LanguageController::class,'switchLang'])->name('switch_lang');
-Route::get('/pagination-per-page/{per_page}',[ PaginationController::class,'set_pagination_per_page'])->name('pagination_per_page');
+    public function register(){
+        $title = __("register.title");
+        $description = __("register.description");
+        return view('auth.register', compact('title','description'));
+    }
+
+    public function forgetPassword(){
+        $title = __("forget_password.title");
+        $description = __("forget_password.description");
+        return view('auth.forget_password', compact('title','description'));
+    }
+
+    public function signup(Request $request){
+        $validators = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+        ]);
+        if($validators->fails()){
+            return redirect()
+                ->route('register', ['locale' => app()->getLocale()])
+                ->withErrors($validators)
+                ->withInput();
+        } else {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            auth()->login($user);
+            return redirect()
+                ->route('home', ['locale' => app()->getLocale()])
+                ->with('message', __('auth.registration_successful'));            
+        }
+    }
+
+    public function authenticate(Request $request){
+        $validators = Validator::make($request->all(),[
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        if($validators->fails()){
+            return redirect()
+                ->route('login', ['locale' => app()->getLocale()])
+                ->withErrors($validators)
+                ->withInput();
+        } else {
+            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+                Log::info('User logged in: '.$request->email);
+                return redirect()
+                    ->route('home', ['locale' => app()->getLocale()])
+                    ->with('message', __('auth.welcome_back'));
+            } else {
+                Log::warning('Failed login attempt: '.$request->email);
+                return redirect()
+                    ->route('login', ['locale' => app()->getLocale()])
+                    ->withErrors([
+                        'email' => __('auth.login_failed')
+                    ])
+                    ->withInput();
+            }
+        }
+    }
+
+    public function logout(){  
+        Auth::logout(); 
+        return redirect()
+            ->route('login', ['locale' => app()->getLocale()])
+            ->with('message', __('auth.logged_out'));       
+    }
+}

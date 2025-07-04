@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="{{ app()->getLocale() }}" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }} - HexaDash</title>
+    <title>{{ $title }} - {{ __('Intelboard') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/plugin.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -26,7 +26,7 @@
                             <div class="card border-0">
                                 <div class="card-header">
                                     <div class="edit-profile__title">
-                                        <h6>Sign Up HexaDash</h6>
+                                        <h6>{{ __('register.title') }}</h6>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -34,23 +34,23 @@
                                         @csrf
                                         <div class="edit-profile__body">
                                             <div class="form-group mb-20">
-                                                <label for="name">name</label>
-                                                <input type="text" class="form-control" name="name" id="name" placeholder="Full Name">
+                                                <label for="name">{{ __('register.name_label') }}</label>
+                                                <input type="text" class="form-control" name="name" id="name" placeholder="{{ __('register.name_placeholder') }}">
                                                 @if($errors->has('name'))
                                                   <p class="text-danger">{{ $errors->first('name') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-20">
-                                                <label for="email">Email Adress</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="Email address">
+                                                <label for="email">{{ __('register.email_label') }}</label>
+                                                <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('register.email_placeholder') }}">
                                                 @if($errors->has('email'))
                                                   <p class="text-danger">{{ $errors->first('email') }}</p>
                                                 @endif
                                             </div>
                                             <div class="form-group mb-15">
-                                                <label for="password-field">password</label>
+                                                <label for="password-field">{{ __('register.password_label') }}</label>
                                                 <div class="position-relative">
-                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="Password">
+                                                    <input id="password-field" type="password" class="form-control" name="password" placeholder="{{ __('register.password_placeholder') }}">
                                                     <span toggle="#password-field" class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2"></span>
                                                 </div>
                                                 @if($errors->has('password'))
@@ -61,17 +61,18 @@
                                                 <div class="checkbox-theme-default custom-checkbox ">
                                                     <input class="checkbox" type="checkbox" id="check-1">
                                                     <label for="check-1">
-                                                        <span class="checkbox-text">Creating an account means you’re okay
-                                                            with our <a href="#" class="color-primary">Terms of
-                                                                Service</a> and <a href="#" class="color-primary">Privacy
-                                                                Policy</a>
-                                                            my preference</span>
+                                                        <span class="checkbox-text">
+                                                            {!! __('register.terms_text', [
+                                                                'terms' => '<a href="#" class="color-primary">'.__('register.terms_of_service').'</a>',
+                                                                'privacy' => '<a href="#" class="color-primary">'.__('register.privacy_policy').'</a>'
+                                                            ]) !!}
+                                                        </span>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
                                                 <button class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
-                                                    Create Account
+                                                    {{ __('register.create_account_button') }}
                                                 </button>
                                             </div>
                                         </div>
@@ -79,7 +80,7 @@
                                 </div>
                                 <div class="px-20">
                                     <p class="social-connector social-connector__admin text-center">
-                                        <span>Or</span>
+                                        <span>{{ __('register.or') }}</span>
                                     </p>
                                     <div class="button-group d-flex align-items-center justify-content-center">
                                         <ul class="admin-socialBtn">
@@ -107,12 +108,14 @@
                                     </div>
                                 </div>
                                 <div class="admin-topbar">
-                                    <p class="mb-0">
-                                        Don't have an account?
-                                        <a href="{{ route('login') }}" class="color-primary">
-                                            Sign In
-                                        </a>
-                                    </p>
+<p class="mb-0">
+    {{ __('register.have_account') }}
+    <a href="{{ route('login', ['locale' => app()->getLocale()]) }}" class="color-primary">
+        {{ __('register.sign_in') }}
+    </a>
+</p>
+
+                                    
                                 </div>
                             </div>
                         </div>
